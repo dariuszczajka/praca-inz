@@ -1,11 +1,19 @@
 import '../App.css';
+import {Button} from "@mui/material";
+import {useDispatch} from "react-redux";
+import {setActiveOffer} from "../redux/activeOfferSlice";
 
-const SingleOffer = () => {
+const SingleOffer = (props) => {
+    const dispatch = useDispatch();
+
     return(
         <div className='border-all-around'>
-            <img className='single-offer-image' src={'https://i0.wp.com/petradioshow.com/wp-content/uploads/2020/01/littledogyap-scaled.jpeg?resize=640%2C427&ssl=1'}/>
-            <h1>name of the item</h1>
-            <p>location</p>
+            <img className='single-offer-image' src={props.img}/>
+            <h1>{props.name}</h1>
+            <p>{props.desc}</p>
+            <Button variant="contained" onClick={() => {
+                dispatch(setActiveOffer(props.offer));
+            }}>see more</Button>
         </div>
     )
 };

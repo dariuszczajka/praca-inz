@@ -1,14 +1,55 @@
 import '../App.css';
 import SingleOffer from "./SingleOffer";
 import {Stack} from "@mui/material";
+import {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import MaximizedOffer from "./MaximizedOffer";
+
+let data = [
+    {
+        "id": "1",
+        "name": "pies",
+        "desc": "pies",
+        "price": 200,
+        "img": "http://www.telekarma.pl/userfiles/images/aktualnosci/305464337-760x500.jpg",
+        "lat": 52.230016,
+        "lon": 21.011240
+    },
+    {
+        "id": "2",
+        "name": "pies2",
+        "desc": "pies2",
+        "price": 150,
+        "img": "https://i.natgeofe.com/n/4f5aaece-3300-41a4-b2a8-ed2708a0a27c/domestic-dog_thumb_3x2.jpg",
+        "lat": 52.231902,
+        "lon": 21.011970
+    },
+    {
+        "id": "3",
+        "name": "daewoo lanos",
+        "desc": "super fura polecam",
+        "price": 1000,
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Daewoo_Lanos_3-door_front.JPG/1200px-Daewoo_Lanos_3-door_front.JPG",
+        "lat": 52.232786,
+        "lon": 21.007275
+    }
+];
 
 const Offers = () => {
+    const activeOffer = useSelector(state => state.activeOffer);
+
     return(
-        <Stack className='offers-container'>
-            <SingleOffer/>
-            <SingleOffer/>
-            <SingleOffer/>
-        </Stack>
+        <>
+            {activeOffer.isEmpty ?
+                <Stack className='offers-container'>
+                    {data.map(offer => (
+                        <SingleOffer key={offer.id} img={offer.img} name={offer.name} desc={offer.desc} offer={offer}/>
+                    ))}
+                </Stack>
+                :
+                <MaximizedOffer/>
+            }
+        </>
     )
 };
 export default Offers;
