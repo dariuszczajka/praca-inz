@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    activeOffer: null,
+    activeOffer: {},
     isEmpty: true
 }
 
@@ -14,7 +14,7 @@ export const activeOfferSlice = createSlice({
             state.isEmpty = false;
         },
         removeActiveOffer: (state) => {
-            state.activeOffer = null;
+            state.activeOffer = {};
             state.isEmpty = true;
         },
     },

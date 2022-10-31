@@ -1,10 +1,11 @@
 import '../App.css';
 import {Button} from "@mui/material";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {setActiveOffer} from "../redux/activeOfferSlice";
 
 const SingleOffer = (props) => {
     const dispatch = useDispatch();
+    const activeOffer = useSelector(state => state.activeOffer);
 
     return(
         <div className='border-all-around'>

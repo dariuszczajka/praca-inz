@@ -1,12 +1,10 @@
 import { MapContainer, TileLayer, useMap, Marker, Popup} from 'react-leaflet'
-import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import icon from 'leaflet/dist/images/marker-icon.png';
-import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {setActiveOffer} from "../redux/activeOfferSlice";
 import {setMapCurrentLatLon, setMapCurrentZoomLvl, setUserLocation} from "../redux/mapDataSlice";
+import OfferMarker from "./OfferMarker";
+import MapController from "./MapController";
 
 const Map = (props) => {
 
@@ -42,7 +40,6 @@ const Map = (props) => {
     const activeOffer = useSelector(state => state.activeOffer);
     const mapData = useSelector(state => state.mapData);
     const dispatch = useDispatch();
-    let map = L.map('map');
 
     //const [position, setPosition] = useState([52.232558, 21.009974]);
 
@@ -51,20 +48,18 @@ const Map = (props) => {
         dispatch(setUserLocation([position.coords.latitude, position.coords.longitude]))
     });
 
-    let DefaultIcon = L.icon({
-        iconUrl: icon,
-        shadowUrl: iconShadow
-    });
-    L.Marker.prototype.options.icon = DefaultIcon;
+
     return(
         <MapContainer id="map" style={{ height: "100vh" }}  center={mapData.mapCurrentLatLon} zoom={mapData.mapCurrentZoomLvl} scrollWheelZoom={false}>
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
+            <MapController activeOffer={activeOffer}/>
             {data.map(offer => (
-                <Marker
+                <OfferMarker
                     key={offer.id}
+                    offer={offer}
                     position={[
                         offer.lat,
                         offer.lon
@@ -74,7 +69,7 @@ const Map = (props) => {
                             dispatch(setActiveOffer(offer));
                             dispatch(setMapCurrentLatLon([activeOffer.activeOffer.lat, activeOffer.activeOffer.lon]));
                             dispatch(setMapCurrentZoomLvl(16));
-                            map.panTo([activeOffer.activeOffer.lat, activeOffer.activeOffer.lon]);
+                            //map.panTo([activeOffer.activeOffer.lat, activeOffer.activeOffer.lon]);
                         },
                     }}
                 />
