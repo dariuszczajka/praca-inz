@@ -9,7 +9,7 @@ const SingleOffer = (props) => {
 
     return(
         <div className='border-all-around'>
-            <img className='single-offer-image' src={props.img}/>
+            <img className='offer-image' src={props.img}/>
             <h1>{props.name}</h1>
             <p>{props.desc}</p>
             <Button variant="contained" onClick={() => {

@@ -1,55 +1,57 @@
 import '../App.css';
 import SingleOffer from "./SingleOffer";
 import {Stack} from "@mui/material";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import MaximizedOffer from "./MaximizedOffer";
-
-let data = [
-    {
-        "id": "1",
-        "name": "pies",
-        "desc": "pies",
-        "price": 200,
-        "img": "http://www.telekarma.pl/userfiles/images/aktualnosci/305464337-760x500.jpg",
-        "lat": 52.230016,
-        "lon": 21.011240
-    },
-    {
-        "id": "2",
-        "name": "pies2",
-        "desc": "pies2",
-        "price": 150,
-        "img": "https://i.natgeofe.com/n/4f5aaece-3300-41a4-b2a8-ed2708a0a27c/domestic-dog_thumb_3x2.jpg",
-        "lat": 52.231902,
-        "lon": 21.011970
-    },
-    {
-        "id": "3",
-        "name": "daewoo lanos",
-        "desc": "super fura polecam",
-        "price": 1000,
-        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Daewoo_Lanos_3-door_front.JPG/1200px-Daewoo_Lanos_3-door_front.JPG",
-        "lat": 52.232786,
-        "lon": 21.007275
-    }
-];
+import axios from "axios";
+import {setOffers} from "../redux/allOffersSlice";
 
 const Offers = () => {
+    const BACKEND_URL = 'http://localhost:5000'
     const activeOffer = useSelector(state => state.activeOffer);
+    const allOffers = useSelector(state => state.allOffers);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        getOffersFromAPI();
+    }, []);
+
+    function getOffersFromAPI() {
+        axios.get(BACKEND_URL + '/offer/all')
+            .then(function (response) {
+                console.log(response.data)
+                dispatch(setOffers(response.data))
+                console.log(allOffers.offers)
+                console.log(allOffers.isLoading)
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+            .then(function () {
+                // always executed
+            });
+    }
 
     return(
-        <>
+        <div className='flex w-1/2 mt-16'>
             {activeOffer.isEmpty ?
-                <Stack className='offers-container'>
-                    {data.map(offer => (
-                        <SingleOffer key={offer.id} img={offer.img} name={offer.name} desc={offer.desc} offer={offer}/>
-                    ))}
-                </Stack>
+                <>
+                    {allOffers.isLoading ?
+                        <p>spinner</p>
+                        :
+                        <Stack className='offers-container'>
+                            {allOffers.offers.map(offer => (
+                                <SingleOffer key={offer._id} img={offer.img} name={offer.name} desc={offer.desc} offer={offer}/>
+                            ))}
+                        </Stack>
+                    }
+                </>
                 :
                 <MaximizedOffer/>
             }
-        </>
+        </div>
     )
 };
 export default Offers;

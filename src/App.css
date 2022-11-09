@@ -39,27 +39,6 @@
   }
 }
 
-.root{
-  display: flex;
-  flex-direction: row;
-}
-
-.offers-container {
-  width: 50%;
-  height: 100vh;
-}
-.leaflet-container {
-  width: 50%;
-  height: 100vh;
-}
-.single-offer-container{
-  padding: 0 1vh 0.5vh 1vh;
-  height: 100vh;
-}
-.border-all-around{
-  border: 1px solid red;
-}
-.single-offer-image{
-  width: 8vw;
-  height: 6vw;
+.offer-image{
+  @apply w-48 h-36
 }
