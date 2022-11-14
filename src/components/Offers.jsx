@@ -35,13 +35,13 @@ const Offers = () => {
     }
 
     return(
-        <div className='flex w-1/2 mt-16'>
+        <div className='flex mt-16 w-1/2'>
             {activeOffer.isEmpty ?
                 <>
                     {allOffers.isLoading ?
                         <p>spinner</p>
                         :
-                        <Stack className='offers-container'>
+                        <Stack className='offers-container overflow-auto flex-grow ml-2 pr-2 mr-1' spacing={2}>
                             {allOffers.offers.map(offer => (
                                 <SingleOffer key={offer._id} img={offer.img} name={offer.name} desc={offer.desc} offer={offer}/>
                             ))}

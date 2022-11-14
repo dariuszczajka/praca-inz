@@ -8,7 +8,7 @@ const MaximizedOffer = () => {
     const dispatch = useDispatch();
 
     return(
-        <div className='offers-container'>
+        <div className='offers-container overflow-auto'>
             <img className='single-offer-image' src={activeOffer.activeOffer.img}/>
             <p>{activeOffer.activeOffer.name}</p>
             <p>{activeOffer.activeOffer.desc}</p>

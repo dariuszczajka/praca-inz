@@ -6,7 +6,7 @@ import Navbar from "./components/Navbar";
 function App() {
 
   return (
-      <div className='h-screen w-screen m-0'>
+      <div id='app-root' className='h-screen w-screen m-0 flex overflow-hidden navbar-color'>
         <Navbar/>
         <Offers/>
         <Map className='leaflet-container'/>

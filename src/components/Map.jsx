@@ -23,7 +23,7 @@ const Map = () => {
 
 
     return(
-            <MapContainer id="map" className="flex h-[32rem] w-1/2" center={mapData.mapCurrentLatLon} zoom={mapData.mapCurrentZoomLvl} scrollWheelZoom={false}>
+            <MapContainer id="map" className="flex h-[54.5rem] w-1/2 mt-16 fixed right-0" center={mapData.mapCurrentLatLon} zoom={mapData.mapCurrentZoomLvl} scrollWheelZoom={false}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
