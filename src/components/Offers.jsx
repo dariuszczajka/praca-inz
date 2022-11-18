@@ -39,6 +39,7 @@ const Offers = () => {
             {activeOffer.isEmpty ?
                 <>
                     {allOffers.isLoading ?
+                        //TODO: real spinner
                         <p>spinner</p>
                         :
                         <Stack className='offers-container overflow-auto flex-grow ml-2 pr-2 mr-1' spacing={2}>

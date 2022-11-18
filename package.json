@@ -8,6 +8,7 @@
     "@fontsource/roboto": "^4.5.8",
     "@headlessui/react": "^1.7.4",
     "@heroicons/react": "^2.0.13",
+    "@mui/icons-material": "^5.10.14",
     "@mui/material": "^5.10.8",
     "@reduxjs/toolkit": "^1.8.6",
     "@testing-library/jest-dom": "^5.16.5",
