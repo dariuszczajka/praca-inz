@@ -1,6 +1,6 @@
 import './App.css';
 import Map from "./components/Map";
-import Offers from "./components/Offers";
+import LeftScreenController from "./components/LeftScreenController";
 import Navbar from "./components/Navbar";
 import {useDispatch, useSelector} from "react-redux";
 import {logUser} from "./redux/loggedUserSlice";
@@ -17,7 +17,7 @@ function App() {
     return (
       <div id='app-root' className='h-screen w-screen m-0 flex overflow-hidden navbar-color'>
         <Navbar/>
-        <Offers/>
+        <LeftScreenController/>
         <Map className='leaflet-container'/>
       </div>
   );

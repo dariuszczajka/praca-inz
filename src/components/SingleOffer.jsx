@@ -4,10 +4,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {setActiveOffer} from "../redux/activeOfferSlice";
 import { HiOutlineLocationMarker } from 'react-icons/hi';
 import { BiTime } from 'react-icons/bi';
+import {setCurrentSite} from "../redux/currentSiteController";
 
 const SingleOffer = (props) => {
     const dispatch = useDispatch();
-    const activeOffer = useSelector(state => state.activeOffer);
+    const currentSiteController = useSelector(state => state.currentSiteController)
+    const availableSites = useSelector(state => state.availableSites);
 
     return(
         <div className='border-all-around offer-color flex gap-3'>
@@ -27,6 +29,7 @@ const SingleOffer = (props) => {
 
                 <Button variant="contained" onClick={() => {
                     dispatch(setActiveOffer(props.offer));
+                    dispatch(setCurrentSite(currentSiteController.availableSites.MaximizedOffer));
                 }}>see more</Button>
             </div>
         </div>
