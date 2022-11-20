@@ -10,7 +10,7 @@ const initialState = {
     currentSite: 'AllOffers'
 }
 
-export const currentSiteController = createSlice({
+export const currentSiteControllerSlice = createSlice({
     name: 'currentSiteController',
     initialState,
     reducers: {
@@ -20,6 +20,6 @@ export const currentSiteController = createSlice({
     },
 })
 
-export const {setCurrentSite} = currentSiteController.actions;
+export const {setCurrentSite} = currentSiteControllerSlice.actions;
 
-export default currentSiteController.reducer
+export default currentSiteControllerSlice.reducer

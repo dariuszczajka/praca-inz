@@ -7,7 +7,7 @@ import MaximizedOffer from "./MaximizedOffer";
 import axios from "axios";
 import {setOffers} from "../redux/allOffersSlice";
 import AddNewListingForm from "./AddNewListingForm";
-import {setCurrentSite} from "../redux/currentSiteController";
+import {setCurrentSite} from "../redux/currentSiteControllerSlice";
 
 const LeftScreenController = () => {
     const BACKEND_URL = 'http://localhost:5000'

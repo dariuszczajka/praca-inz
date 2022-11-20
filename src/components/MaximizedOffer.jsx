@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Button} from "@mui/material";
 import {removeActiveOffer} from "../redux/activeOfferSlice";
 import {setMapCurrentLatLon, setMapCurrentZoomLvl} from "../redux/mapDataSlice";
-import {setCurrentSite} from "../redux/currentSiteController";
+import {setCurrentSite} from "../redux/currentSiteControllerSlice";
 
 const MaximizedOffer = () => {
     const activeOffer = useSelector(state => state.activeOffer);

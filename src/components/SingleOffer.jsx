@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {setActiveOffer} from "../redux/activeOfferSlice";
 import { HiOutlineLocationMarker } from 'react-icons/hi';
 import { BiTime } from 'react-icons/bi';
-import {setCurrentSite} from "../redux/currentSiteController";
+import {setCurrentSite} from "../redux/currentSiteControllerSlice";
 
 const SingleOffer = (props) => {
     const dispatch = useDispatch();
