@@ -14,13 +14,15 @@ import Logout from '@mui/icons-material/Logout';
 import Button from "@mui/material/Button";
 import {deepPurple} from "@mui/material/colors";
 import {setActiveOffer} from "../redux/activeOfferSlice";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {logoutUser} from "../redux/loggedUserSlice";
+import {setCurrentSite} from "../redux/currentSiteControllerSlice";
 
 
 
-function AvatarList(props) {
+function LoggedUserMenu(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const currentSiteController = useSelector(state => state.currentSiteController);
     const dispatch = useDispatch();
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -31,11 +33,15 @@ function AvatarList(props) {
     };
     const handleLogout = () => {
         dispatch(logoutUser());
+        localStorage.clear();
+    }
+    const handleAddListing = () => {
+        dispatch(setCurrentSite(currentSiteController.availableSites.AddListing));
     }
     return (
         <React.Fragment>
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                <Button variant="contained" onClick={()=>{alert('cos tu bedzie sie dzialo obiecuje')}}>
+                <Button variant="contained" onClick={handleAddListing}>
                     Dodaj ogłoszenie
                 </Button>
                 <Tooltip title="Account settings">
@@ -107,4 +113,4 @@ function AvatarList(props) {
     );
 }
 
-export default AvatarList;
+export default LoggedUserMenu;

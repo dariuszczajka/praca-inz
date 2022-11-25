@@ -5,7 +5,7 @@ import Login from "./Login";
 import {useSelector} from "react-redux";
 import {deepPurple} from "@mui/material/colors";
 import {useEffect} from "react";
-import AvatarList from "./AvatarList";
+import LoggedUserMenu from "./LoggedUserMenu";
 
 const Navbar = () => {
     const loggedUser = useSelector(state => state.loggedUser);
@@ -20,7 +20,7 @@ const Navbar = () => {
             </div>
             <div>
                 {loggedUser.isLoggedIn ?
-                    <AvatarList name={loggedUser.loggedUser.username}/>
+                    <LoggedUserMenu name={loggedUser.loggedUser.username}/>
                     :
                     <Login/>
                 }

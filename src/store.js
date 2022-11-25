@@ -3,12 +3,16 @@ import { activeOfferSlice } from "./redux/activeOfferSlice";
 import {mapDataSlice} from "./redux/mapDataSlice";
 import {allOffersSlice} from "./redux/allOffersSlice";
 import {loggedUserSlice} from "./redux/loggedUserSlice";
+import {currentSiteControllerSlice} from "./redux/currentSiteControllerSlice";
+import {categoriesSlice} from "./redux/categoriesSlice";
 
 export const store = configureStore({
     reducer: {
         activeOffer: activeOfferSlice.reducer,
         mapData: mapDataSlice.reducer,
         allOffers: allOffersSlice.reducer,
-        loggedUser: loggedUserSlice.reducer
+        loggedUser: loggedUserSlice.reducer,
+        currentSiteController: currentSiteControllerSlice.reducer,
+        categories: categoriesSlice.reducer,
     },
 });
