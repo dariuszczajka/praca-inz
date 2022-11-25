@@ -45,7 +45,7 @@ const LeftScreenController = () => {
                 return(
                     <Stack className='offers-container overflow-auto flex-grow ml-2 pr-2 mr-1' spacing={2}>
                         {allOffers.offers.map(offer => (
-                            <SingleOffer key={offer._id} img={offer.img} name={offer.name} desc={offer.desc} offer={offer}/>
+                            <SingleOffer key={offer._id} img={offer.img[0]} name={offer.name} desc={offer.desc} offer={offer}/>
                         ))}
                     </Stack>
                 );
@@ -64,7 +64,7 @@ const LeftScreenController = () => {
     }
 
     return(
-        <div className='flex mt-16 w-1/2'>
+        <div className='flex mt-16 w-1/2 overflow-auto'>
             {renderSwitch()}
         </div>
     )

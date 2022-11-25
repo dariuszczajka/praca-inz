@@ -33,6 +33,7 @@ function LoggedUserMenu(props) {
     };
     const handleLogout = () => {
         dispatch(logoutUser());
+        localStorage.clear();
     }
     const handleAddListing = () => {
         dispatch(setCurrentSite(currentSiteController.availableSites.AddListing));
