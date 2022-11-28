@@ -1,4 +1,5 @@
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Map from "./components/Map";
 import LeftScreenController from "./components/LeftScreenController";
 import Navbar from "./components/Navbar";
