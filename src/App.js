@@ -1,6 +1,6 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Map from "./components/Map";
+import MapDepreciated from "./components/Map--depreciated";
 import LeftScreenController from "./components/LeftScreenController";
 import Navbar from "./components/Navbar";
 import {useDispatch, useSelector} from "react-redux";
@@ -8,6 +8,7 @@ import {logUser} from "./redux/loggedUserSlice";
 import {useEffect} from "react";
 import axios from "axios";
 import {setCategories} from "./redux/categoriesSlice";
+import NewMap from "./components/NewMap";
 
 function App() {
     const dispatch = useDispatch();
@@ -45,7 +46,7 @@ function App() {
       <div id='app-root' className='h-screen w-screen m-0 flex overflow-hidden navbar-color'>
         <Navbar/>
         <LeftScreenController/>
-        <Map className='leaflet-container'/>
+        <NewMap className='leaflet-container'/>
       </div>
   );
 }

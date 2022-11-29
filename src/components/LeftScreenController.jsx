@@ -1,6 +1,6 @@
 import '../App.css';
 import SingleOffer from "./SingleOffer";
-import {Stack} from "@mui/material";
+import {CircularProgress, Stack} from "@mui/material";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import MaximizedOffer from "./MaximizedOffer";
@@ -42,13 +42,19 @@ const LeftScreenController = () => {
     function renderSwitch() {
         switch(currentSiteController.currentSite){
             case currentSiteController.availableSites.AllOffers:
-                return(
-                    <Stack className='offers-container overflow-auto flex-grow ml-2 pr-2 mr-1' spacing={2}>
+                if(allOffers.offers.length > 0){
+                    return(<Stack className='offers-container overflow-auto flex-grow ml-2 pr-2 mr-1' spacing={2}>
                         {allOffers.offers.map(offer => (
                             <SingleOffer key={offer._id} img={offer.img[0]} name={offer.name} desc={offer.desc} offer={offer}/>
                         ))}
-                    </Stack>
-                );
+                        </Stack>);
+                    } else {
+                    return (
+                        <div className='offers-container align-center flex w-full justify-center font-white-color'>
+                            <h1>Ładowanie...</h1>
+                            <CircularProgress/>
+                        </div>)
+                    }
             case currentSiteController.availableSites.MaximizedOffer:
                 return(<MaximizedOffer/>);
             case currentSiteController.availableSites.UserSettings:
@@ -57,8 +63,7 @@ const LeftScreenController = () => {
                 return(<AddNewListingForm/>);
             default:
                 return(
-                    //TODO: real spinner
-                    <p>spinner</p>
+                    <p>error</p>
                 )
         }
     }

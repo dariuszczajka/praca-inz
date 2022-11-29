@@ -14,6 +14,7 @@ const AddNewListingForm = () => {
     const BACKEND_URL = 'http://localhost:5000'
     const dispatch = useDispatch();
     const currentSiteController = useSelector(state => state.currentSiteController)
+    const createdOffer = useSelector(state => state.createdOffer);
 
     const [images, setImages] = useState([]);
     const [imageURLs, setImageURLs] = useState([]);
@@ -32,6 +33,10 @@ const AddNewListingForm = () => {
         images.forEach(image => newImageURLs.push(URL.createObjectURL(image)));
         setImageURLs(newImageURLs);
     }, [images]);
+
+    useEffect(()=>{
+        console.log(createdOffer.createdOfferLocation);
+    },[createdOffer.createdOfferLocation]);
 
     const onImageChange = (e) => {
         setImages([...e.target.files]);
@@ -102,8 +107,8 @@ const AddNewListingForm = () => {
             category: category,
             desc: desc,
             price: price,
-            lon: lon,
-            lat: lat
+            lon: createdOffer.createdOfferLocation.lon,
+            lat: createdOffer.createdOfferLocation.lat
         })
             .then((response) => {
                 formData.append('offerID', response.data)
@@ -174,15 +179,12 @@ const AddNewListingForm = () => {
             />
             <TextField
                 className='offer-color w-2/5'
-                id="outlined-required"
-                label="Longitude"
-                onChange={(event) => {setLon(event.target.value)}}
-            />
-            <TextField
-                className='offer-color w-2/5'
-                id="outlined-required"
-                label="Latitude"
-                onChange={(event) => {setLat(event.target.value)}}
+                id="outlined-read-only-input"
+                label="Location"
+                value={createdOffer.createdOfferLocation.lon + ', ' + createdOffer.createdOfferLocation.lat}
+                InputProps={{
+                    readOnly: true,
+                }}
             />
             <TextField
                 className='offer-color w-2/5'
