@@ -14,14 +14,16 @@ const LeftScreenController = () => {
     const activeOffer = useSelector(state => state.activeOffer);
     const allOffers = useSelector(state => state.allOffers);
     const currentSiteController = useSelector(state => state.currentSiteController)
+    const filters = useSelector(state => state.filters)
     const dispatch = useDispatch();
 
     useEffect(() => {
         getOffersFromAPI();
-    }, []);
+        console.log('calling api')
+    }, [filters.activeFilters]);
 
     function getOffersFromAPI() {
-        axios.get(BACKEND_URL + '/offer/all')
+        axios.get(BACKEND_URL + '/offer/filter', { params: filters.activeFilters })
             .then(function (response) {
                 console.log(response.data)
                 dispatch(setOffers(response.data))
@@ -40,6 +42,9 @@ const LeftScreenController = () => {
     }
 
     function renderSwitch() {
+        console.log('filtry');
+        console.log(filters.activeFilters);
+
         switch(currentSiteController.currentSite){
             case currentSiteController.availableSites.AllOffers:
                 if(allOffers.offers.length > 0){

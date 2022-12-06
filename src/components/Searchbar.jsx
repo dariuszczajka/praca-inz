@@ -4,6 +4,7 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import {Autocomplete, Box, Button, Stack, TextField} from "@mui/material";
 import {HiOutlineLocationMarker} from "react-icons/hi";
 import {BsSearch} from "react-icons/bs";
+import Filters from "./Filters";
 
 
 const people = [
@@ -60,6 +61,7 @@ const people = [
                 <Button variant="contained" onClick={() => {
                     alert('searching');
                 }}>search</Button>
+                <Filters/>
             </Stack>
         );
     }

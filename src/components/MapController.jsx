@@ -34,7 +34,7 @@ export default function MapController(props) {
 
     useEffect(() => {
         if(mapData.mapDataUpdated)
-            map.flyTo(mapData.userLocation);
+            map.setView(mapData.userLocation);
             //L.marker(mapData.userLocation).addTo(map);
     }, [mapData.mapDataUpdated]);
     return (
