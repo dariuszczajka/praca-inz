@@ -19,18 +19,39 @@ const LeftScreenController = () => {
 
     useEffect(() => {
         getOffersFromAPI();
-        console.log('calling api')
-    }, [filters.activeFilters]);
+    }, [filters.filterCity, filters.filterCategory, filters.filterMinPrice, filters.filterOnlyLocal, filters.userMapCoordinates, filters.q]);
+
+    function createObjectFromFilters(){
+        let object = {};
+        if(filters.filterCity !== ''){
+            object.city = filters.filterCity;
+        }
+        if(filters.filterCategory !== ''){
+            object.category = filters.filterCategory;
+        }
+        if(filters.filterMinPrice !== ''){
+            object.min = filters.filterMinPrice;
+        }
+        if(filters.filterMaxPrice !== ''){
+            object.max = filters.filterMaxPrice;
+        }
+        if(filters.q !== ''){
+            object.q = filters.q;
+        }
+        object.southwest = filters.userMapCoordinates.southwest;
+        object.northeast = filters.userMapCoordinates.northeast;
+        object.onlyLocal = filters.filterOnlyLocal;
+        return object;
+    }
 
     function getOffersFromAPI() {
-        axios.get(BACKEND_URL + '/offer/filter', { params: filters.activeFilters })
+        let parameters = createObjectFromFilters();
+        console.log('active filters - calling api');
+        console.log(parameters);
+        axios.get(BACKEND_URL + '/offer/filter', { params: parameters })
             .then(function (response) {
-                console.log(response.data)
                 dispatch(setOffers(response.data))
                 dispatch(setCurrentSite(currentSiteController.availableSites.AllOffers));
-
-                console.log(currentSiteController.availableSites.AllOffers)
-                console.log(allOffers.isLoading)
             })
             .catch(function (error) {
                 // handle error
@@ -42,8 +63,6 @@ const LeftScreenController = () => {
     }
 
     function renderSwitch() {
-        console.log('filtry');
-        console.log(filters.activeFilters);
 
         switch(currentSiteController.currentSite){
             case currentSiteController.availableSites.AllOffers:

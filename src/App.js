@@ -24,13 +24,11 @@ function App() {
         }
         getCategoriesFromAPI();
         dispatch(setCategories(categories));
-        console.log(categoriesSelector.categories);
     }, []);
 
     function getCategoriesFromAPI() {
         axios.get(BACKEND_URL + '/category/all')
             .then(function (response) {
-                console.log(response.data)
                 categories = response.data;
             })
             .catch(function (error) {

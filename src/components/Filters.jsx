@@ -13,7 +13,13 @@ import {useEffect, useState} from "react";
 import * as PropTypes from "prop-types";
 import MuiAlert from '@mui/material/Alert';
 import {useDispatch, useSelector} from "react-redux";
-import {setActiveFilters} from "../redux/filterSlice";
+import {
+    setFilterCategory,
+    setFilterCity,
+    setFilterMaxPrice,
+    setFilterMinPrice, setFilterOnlyLocal,
+    setUserMapCoordinates
+} from "../redux/filterSlice";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -31,8 +37,6 @@ const Filters = () => {
 
     //TODO: better UI experience while creating an account - for now, using simple 'alert'
     const handleCloseAlert = (event, reason) => {
-        console.log('i closed alert');
-        console.log(reason);
         if (reason === 'clickaway') {
             return;
         }
@@ -40,8 +44,6 @@ const Filters = () => {
     };
 
     const handleOpenAlert = () => {
-
-        console.log('i opened alert');
         setOpenAlert(true);
     };
 
@@ -52,23 +54,19 @@ const Filters = () => {
     const [onlyLocal, setOnlyLocal] = useState(false);
 
     function filterBuilder(){
-        let filter = {}
-
         if(city !== ''){
-            filter.city = city;
+            dispatch(setFilterCity(city));
         }
         if(category !== ''){
-            filter.category = category;
+            dispatch(setFilterCategory(category));
         }
         if(min !== ''){
-            filter.min = min;
+            dispatch(setFilterMinPrice(min));
         }
         if(max !== ''){
-            filter.max = max;
+            dispatch(setFilterMaxPrice(max));
         }
-        filter.onlyLocal = onlyLocal;
-
-        return filter;
+        dispatch(setFilterOnlyLocal(onlyLocal));
     }
 
     const handleClickOpen = () => {
@@ -76,7 +74,7 @@ const Filters = () => {
     };
 
     const handleClose = () => {
-        dispatch(setActiveFilters(filterBuilder()));
+        filterBuilder()
         setOpen(false);
     }
 
