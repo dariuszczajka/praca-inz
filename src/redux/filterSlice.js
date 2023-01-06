@@ -7,6 +7,7 @@ const initialState = {
     filterMaxPrice: '',
     q: '',
     filterOnlyLocal: false,
+    filterByUser: '',
     userMapCoordinates: {},
     isEmpty: true
 }
@@ -39,6 +40,10 @@ export const filterSlice = createSlice({
             state.userMapCoordinates = action.payload;
             state.isEmpty = false;
         },
+        setFilterByUser: (state, action) => {
+            state.filterByUser = action.payload;
+            state.isEmpty = false;
+        },
         setSearchQuery: (state, action) => {
             state.q = action.payload;
             state.isEmpty = false;
@@ -46,6 +51,7 @@ export const filterSlice = createSlice({
         removeActiveFilters: (state) => {
             state.filterCity = '';
             state.filterCategory = '';
+            state.filterByUser = '';
             state.filterMinPrice = '';
             state.filterMaxPrice = '';
             state.filterOnlyLocal = false;
@@ -54,6 +60,6 @@ export const filterSlice = createSlice({
     },
 })
 
-export const {setFilterCity,setFilterCategory,setFilterMinPrice, setFilterMaxPrice,setFilterOnlyLocal ,setUserMapCoordinates,setSearchQuery , removeActiveFilters} = filterSlice.actions;
+export const {setFilterCity,setFilterCategory,setFilterMinPrice, setFilterMaxPrice,setFilterOnlyLocal ,setUserMapCoordinates,setSearchQuery, setFilterByUser , removeActiveFilters} = filterSlice.actions;
 
 export default filterSlice.reducer

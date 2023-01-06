@@ -8,8 +8,7 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
-import PersonAdd from '@mui/icons-material/PersonAdd';
-import Settings from '@mui/icons-material/Settings';
+import PersonIcon from '@mui/icons-material/Person';
 import Logout from '@mui/icons-material/Logout';
 import Button from "@mui/material/Button";
 import {deepPurple} from "@mui/material/colors";
@@ -17,12 +16,14 @@ import {setActiveOffer} from "../redux/activeOfferSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {logoutUser} from "../redux/loggedUserSlice";
 import {setCurrentSite} from "../redux/currentSiteControllerSlice";
+import {setFilterByUser} from "../redux/filterSlice";
 
 
 
 function LoggedUserMenu(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const currentSiteController = useSelector(state => state.currentSiteController);
+    const loggedUser = useSelector(state => state.loggedUser);
     const dispatch = useDispatch();
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -35,13 +36,21 @@ function LoggedUserMenu(props) {
         dispatch(logoutUser());
         localStorage.clear();
     }
+    const handleMyOffers = () => {
+        dispatch(setFilterByUser(loggedUser.loggedUser.userID));
+    }
+
     const handleAddListing = () => {
         dispatch(setCurrentSite(currentSiteController.availableSites.AddListing));
     }
     return (
         <React.Fragment>
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                <Button variant="contained" onClick={handleAddListing}>
+                <Button variant="contained"
+                        style={{
+                            backgroundColor: "#FCA311",
+                        }}
+                        onClick={handleAddListing}>
                     Dodaj ogłoszenie
                 </Button>
                 <Tooltip title="Account settings">
@@ -96,11 +105,11 @@ function LoggedUserMenu(props) {
                     <Avatar sx={{ bgcolor: deepPurple[500] }}></Avatar> {props.name}
                 </MenuItem>
                 <Divider />
-                <MenuItem>
+                <MenuItem onClick={handleMyOffers}>
                     <ListItemIcon>
-                        <Settings fontSize="small" />
+                        <PersonIcon fontSize="small" />
                     </ListItemIcon>
-                    Ustawienia
+                    Moje ogłoszenia
                 </MenuItem>
                 <MenuItem onClick={handleLogout}>
                     <ListItemIcon>

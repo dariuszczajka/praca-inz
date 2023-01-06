@@ -38,6 +38,10 @@ const LeftScreenController = () => {
         if(filters.q !== ''){
             object.q = filters.q;
         }
+        if(filters.filterByUser !== ''){
+            console.log(filters.filterByUser);
+            object.filterByUser = filters.filterByUser;
+        }
         object.southwest = filters.userMapCoordinates.southwest;
         object.northeast = filters.userMapCoordinates.northeast;
         object.onlyLocal = filters.filterOnlyLocal;

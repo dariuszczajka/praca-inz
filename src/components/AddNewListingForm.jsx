@@ -1,5 +1,5 @@
 import '../App.css';
-import {Button, Stack, TextareaAutosize, TextField} from "@mui/material";
+import {Box, Button, InputLabel, Select, Stack, TextareaAutosize, TextField} from "@mui/material";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import MenuItem from "@mui/material/MenuItem";
@@ -8,6 +8,7 @@ import {setCategories} from "../redux/categoriesSlice";
 import Carousel from 'react-bootstrap/Carousel';
 import {useDispatch, useSelector} from "react-redux";
 import {logUser} from "../redux/loggedUserSlice";
+import Typography from "@mui/material/Typography";
 
 
 const AddNewListingForm = () => {
@@ -15,6 +16,7 @@ const AddNewListingForm = () => {
     const dispatch = useDispatch();
     const currentSiteController = useSelector(state => state.currentSiteController)
     const createdOffer = useSelector(state => state.createdOffer);
+    const loggedUser = useSelector(state => state.loggedUser);
 
     const [images, setImages] = useState([]);
     const [imageURLs, setImageURLs] = useState([]);
@@ -25,6 +27,10 @@ const AddNewListingForm = () => {
     const [price, setPrice] = useState('');
     const [lon, setLon] = useState('');
     const [lat, setLat] = useState('');
+
+    const handleCategoryChange = (event) => {
+        setCategory(event.target.value);
+    };
 
 
     useEffect(() => {
@@ -102,7 +108,10 @@ const AddNewListingForm = () => {
             formData.append('image', images[x])
         }
 
+
+
         axios.post(BACKEND_URL + '/offer/new', {
+            ownerID: loggedUser.loggedUser.userID,
             name: name,
             category: category,
             desc: desc,
@@ -128,6 +137,37 @@ const AddNewListingForm = () => {
 
     return(
         <div className='flex flex-col mt-8 w-full gap-4 pl-8 pr-8'>
+            <Typography variant="h3" class='inline-block pt-2'>Dodaj nowe ogłoszenie</Typography>
+            <div>
+                <Typography class='inline-block pt-2'>Dodaj zdjęcia do swojego ogłoszenia, zdjęcia są jedną z najistotniejszych elementów ogłoszenia.
+                Zadbaj o to, aby były wysokiej jakości i wyraźnie prezentowały sprzedawany przedmiot.</Typography>
+                <input type="file" multiple accept="image/*" onChange={onImageChange} />
+
+                {imageURLs.size !== 0 && <div className='offers-container overflow-auto w-full'>
+                    <div className='flex flex-col w-full'>
+                        <Carousel itemsToShow={1} className='self-center'>
+                            {imageURLs.map((image) => {
+                                return <Carousel.Item>
+                                    <Box
+                                        component="img"
+                                        sx={{
+                                            height: '50%',
+                                            width: '100%',
+                                            maxHeight: { xs: 700, md: 600 },
+                                            maxWidth: { xs: 700, md: 500 },
+                                            objectFit: 'cover',
+                                            backgroundColor: '#454a54'
+                                        }}
+                                        alt="This offer has no photo"
+                                        src={image}
+                                    />
+                                </Carousel.Item>})
+                            }
+                        </Carousel>
+                    </div>
+            </div>}
+            </div>
+
             <TextField
                 className='offer-color w-3/5'
                 id="outlined-required"
@@ -140,6 +180,19 @@ const AddNewListingForm = () => {
                 label="Kategoria"
                 onChange={(event) => {setCategory(event.target.value)}}
             />
+            <InputLabel id="demo-simple-select-label">Kategoria</InputLabel>
+            <Select
+                className='offer-color w-3/5'
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={category}
+                label="Kategoria"
+                onChange={handleCategoryChange}
+            >
+                <MenuItem value={10}>Ten</MenuItem>
+                <MenuItem value={20}>Twenty</MenuItem>
+                <MenuItem value={30}>Thirty</MenuItem>
+            </Select>
             <TextField
                 className='offer-color w-3/5'
                 id="outlined-required"
@@ -160,23 +213,18 @@ const AddNewListingForm = () => {
                     </MenuItem>
                 ))}
             </TextField>*/}
-            <input type="file" multiple accept="image/*" onChange={onImageChange} />
-
-
-                {
-                    imageURLs.map(imageSrc =>
-                            <img src={imageSrc} />
-                        )
-                }
-
-
             <TextareaAutosize
                 aria-label="minimum height"
-                className='offer-color w-3/5'
+                className='offer-color w-3/5 min-h-[100px]'
                 minRows={3}
                 placeholder="Opis"
                 onChange={(event) => {setDesc(event.target.value)}}
             />
+
+
+
+
+
             <TextField
                 className='offer-color w-2/5'
                 id="outlined-read-only-input"

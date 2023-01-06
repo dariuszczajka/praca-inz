@@ -10,6 +10,7 @@ import {setSearchQuery} from "../redux/filterSlice";
 
 
 
+
     export default function Searchbar() {
         const dispatch = useDispatch();
 
@@ -20,17 +21,25 @@ import {setSearchQuery} from "../redux/filterSlice";
         return (
             <Stack direction="row" spacing={1} className='pt-0.5 pb-0.5'>
                 <Box className='flex flex-row white-color'>
-                    <BsSearch size={20} className='block mt-2 font-navbar-color mr-1 ml-1'/>
+                    <BsSearch size={16} className='block mt-4 font-navbar-color mr-1 ml-1'/>
                     <TextField
                                onChange={setQuery}
                                className='white-color w-64 border-none'
-                               variant="outlined"
-                               label="Search Box"
+                               variant="standard"
+                               InputProps={{
+                                   disableUnderline: true,
+                               }}
+                               size="small"
+                               label="Szukaj w lokalnie.pl"
                     />
                 </Box>
-                <Button variant="contained" onClick={() => {
+                <Button variant="contained"
+                        style={{
+                            backgroundColor: "#FCA311",
+                        }}
+                        onClick={() => {
                     alert('searching');
-                }}>search</Button>
+                }}>Szukaj</Button>
                 <Filters/>
             </Stack>
         );
