@@ -1,6 +1,6 @@
 import '../App.css';
-import {Box, Button, InputLabel, Select, Stack, TextareaAutosize, TextField} from "@mui/material";
-import {useEffect, useState} from "react";
+import {Autocomplete, Box, Button, InputLabel, Select, Stack, TextareaAutosize, TextField} from "@mui/material";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import MenuItem from "@mui/material/MenuItem";
 import {setCurrentSite} from "../redux/currentSiteControllerSlice";
@@ -50,52 +50,52 @@ const AddNewListingForm = () => {
 
     const categoriesSelector = useSelector(state => state.categories)
 
-    let categoriesMock = [
+    let categories = [
         {
             "_id": "637a402ed06d681a703ad4b3",
-            "namePL": "Motoryzacja",
+            "label": "Motoryzacja",
             "nameEN": "Cars",
             "icon": "cars"
         },
         {
             "_id": "637a4834d06d681a703ad4b5",
-            "namePL": "Praca",
+            "label": "Praca",
             "nameEN": "Jobs",
             "icon": "jobs"
         },
         {
             "_id": "637a4863d06d681a703ad4b6",
-            "namePL": "Dla domu",
+            "label": "Dla domu",
             "nameEN": "Home Appliances",
             "icon": "home_appliances"
         },
         {
             "_id": "637a487ed06d681a703ad4b7",
-            "namePL": "Elektronika",
+            "label": "Elektronika",
             "nameEN": "Electronic devices",
             "icon": "electronic_devices"
         },
         {
             "_id": "637a4897d06d681a703ad4b8",
-            "namePL": "Moda",
+            "label": "Moda",
             "nameEN": "Fashion",
             "icon": "fashion"
         },
         {
             "_id": "637a48b5d06d681a703ad4b9",
-            "namePL": "Zwierzęta",
+            "label": "Zwierzęta",
             "nameEN": "Animals",
             "icon": "animals"
         },
         {
             "_id": "637a48dcd06d681a703ad4ba",
-            "namePL": "Dla dzieci",
+            "label": "Dla dzieci",
             "nameEN": "For kids",
             "icon": "for_kids"
         },
         {
             "_id": "637a4905d06d681a703ad4bb",
-            "namePL": "Za darmo",
+            "label": "Za darmo",
             "nameEN": "Free of charge",
             "icon": "free_of_charge"
         }
@@ -107,8 +107,6 @@ const AddNewListingForm = () => {
         for(let x = 0; x<images.length; x++) {
             formData.append('image', images[x])
         }
-
-
 
         axios.post(BACKEND_URL + '/offer/new', {
             ownerID: loggedUser.loggedUser.userID,
@@ -174,25 +172,15 @@ const AddNewListingForm = () => {
                 label="Nazwa"
                 onChange={(event) => {setName(event.target.value)}}
             />
-            <TextField
+            <Autocomplete
+                disablePortal
                 className='offer-color w-3/5'
-                id="outlined-required"
-                label="Kategoria"
+                id="combo-box-demo"
+                options={categories}
+                sx={{ width: 300 }}
+                renderInput={(params) => <TextField {...params} label="Kategoria" />}
                 onChange={(event) => {setCategory(event.target.value)}}
             />
-            <InputLabel id="demo-simple-select-label">Kategoria</InputLabel>
-            <Select
-                className='offer-color w-3/5'
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={category}
-                label="Kategoria"
-                onChange={handleCategoryChange}
-            >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
             <TextField
                 className='offer-color w-3/5'
                 id="outlined-required"
@@ -221,19 +209,23 @@ const AddNewListingForm = () => {
                 onChange={(event) => {setDesc(event.target.value)}}
             />
 
+            <div>
+                <Typography variant="h4" class='inline-block pt-2'>Lokalizacja</Typography>
+                <Typography class='inline-block pt-2'>Miejsce w którym chciałbyś spotkać z kupującym w celu dokonania transakcji - dom? biuro? osiedlowy warzywniak? Ty wybierasz! <br/> Aby dokonać wyboru naciśnij na mapę, a pole wypełni się współrzędnymi geograficznymi. </Typography>
+                <TextField
+                    className='offer-color w-2/5'
+                    id="outlined-read-only-input"
+                    value={createdOffer.createdOfferLocation.lat  + ', ' + createdOffer.createdOfferLocation.lon}
+                    InputProps={{
+                        readOnly: true,
+                    }}
+                />
 
+            </div>
 
+            <Typography variant="h4" class='inline-block pt-2'>Kontakt</Typography>
+            <Typography class='inline-block pt-2'>Podaj swoje dane i gotowe!</Typography>
 
-
-            <TextField
-                className='offer-color w-2/5'
-                id="outlined-read-only-input"
-                label="Location"
-                value={createdOffer.createdOfferLocation.lon + ', ' + createdOffer.createdOfferLocation.lat}
-                InputProps={{
-                    readOnly: true,
-                }}
-            />
             <TextField
                 className='offer-color w-2/5'
                 id="outlined-required"
@@ -244,13 +236,21 @@ const AddNewListingForm = () => {
                 id="outlined-required"
                 label="Email"
             />
-            <Button
-                variant="contained"
-                component="label"
-                className='offer-color w-1/5 align-middle'
-                onClick={handleSubmit}
-            >Opublikuj ogłoszenie
-            </Button>
+
+            <div className='flex justify-center'>
+                <Button
+                    style={{
+                        backgroundColor: "#FCA311",
+                    }}
+                    variant="contained"
+                    component="label"
+                    className='offer-color w-1/5 align-middle w-64'
+                    onClick={handleSubmit}
+                >Opublikuj ogłoszenie
+                </Button>
+            </div>
+
+
         </div>
     )
 };

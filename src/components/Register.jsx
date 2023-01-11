@@ -23,7 +23,7 @@ const Register = () => {
     const [openAlert, setOpenAlert] = React.useState(false);
     const BACKEND_URL = 'http://localhost:5000'
     const Alert = React.forwardRef(function Alert(props, ref) {
-        return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+        return <MuiAlert elevation={24} ref={ref} variant="filled" {...props} />;
     });
 
     //TODO: better UI experience while creating an account - for now, using simple 'alert'
@@ -34,10 +34,10 @@ const Register = () => {
             return;
         }
         setOpenAlert(false);
+        setOpen()
     };
 
     const handleOpenAlert = () => {
-
         console.log('i opened alert');
         setOpenAlert(true);
     };
@@ -87,15 +87,10 @@ const Register = () => {
             userProfileLocation: location
         })
             .then((response) => {
-                //handleOpenAlert();
+                handleOpenAlert();
                 console.log(response.data);
-                //console.log(openAlert);
-                //console.log('isUserLogged ' + isUserLogged + " " + usrname);
-                setOpen(false);
-                alert('account created succesfully');
-                //dispatch(setOffers(response.data))
-                //console.log(allOffers.offers)
-                //console.log(allOffers.isLoading)
+                //setOpen(false);
+                //alert('account created succesfully');
             })
             .catch(function (error) {
                 alert('something went wrong')
@@ -182,7 +177,7 @@ const Register = () => {
                 </DialogContent>
                 <Snackbar open={openAlert} autoHideDuration={5000} onClose={handleCloseAlert}>
                     <Alert onClose={handleCloseAlert} severity="success" sx={{ width: '100%' }}>
-                        This is a success message!
+                        Twoje konto zostało stworzone!
                     </Alert>
                 </Snackbar>
                 <DialogActions>
