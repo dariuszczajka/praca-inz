@@ -1,6 +1,6 @@
 import '../App.css';
-import {Button, Stack, TextareaAutosize, TextField} from "@mui/material";
-import {useEffect, useState} from "react";
+import {Autocomplete, Box, Button, InputLabel, Select, Stack, TextareaAutosize, TextField} from "@mui/material";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import MenuItem from "@mui/material/MenuItem";
 import {setCurrentSite} from "../redux/currentSiteControllerSlice";
@@ -8,6 +8,7 @@ import {setCategories} from "../redux/categoriesSlice";
 import Carousel from 'react-bootstrap/Carousel';
 import {useDispatch, useSelector} from "react-redux";
 import {logUser} from "../redux/loggedUserSlice";
+import Typography from "@mui/material/Typography";
 
 
 const AddNewListingForm = () => {
@@ -15,6 +16,7 @@ const AddNewListingForm = () => {
     const dispatch = useDispatch();
     const currentSiteController = useSelector(state => state.currentSiteController)
     const createdOffer = useSelector(state => state.createdOffer);
+    const loggedUser = useSelector(state => state.loggedUser);
 
     const [images, setImages] = useState([]);
     const [imageURLs, setImageURLs] = useState([]);
@@ -25,6 +27,10 @@ const AddNewListingForm = () => {
     const [price, setPrice] = useState('');
     const [lon, setLon] = useState('');
     const [lat, setLat] = useState('');
+
+    const handleCategoryChange = (event) => {
+        setCategory(event.target.value);
+    };
 
 
     useEffect(() => {
@@ -44,52 +50,52 @@ const AddNewListingForm = () => {
 
     const categoriesSelector = useSelector(state => state.categories)
 
-    let categoriesMock = [
+    let categories = [
         {
             "_id": "637a402ed06d681a703ad4b3",
-            "namePL": "Motoryzacja",
+            "label": "Motoryzacja",
             "nameEN": "Cars",
             "icon": "cars"
         },
         {
             "_id": "637a4834d06d681a703ad4b5",
-            "namePL": "Praca",
+            "label": "Praca",
             "nameEN": "Jobs",
             "icon": "jobs"
         },
         {
             "_id": "637a4863d06d681a703ad4b6",
-            "namePL": "Dla domu",
+            "label": "Dla domu",
             "nameEN": "Home Appliances",
             "icon": "home_appliances"
         },
         {
             "_id": "637a487ed06d681a703ad4b7",
-            "namePL": "Elektronika",
+            "label": "Elektronika",
             "nameEN": "Electronic devices",
             "icon": "electronic_devices"
         },
         {
             "_id": "637a4897d06d681a703ad4b8",
-            "namePL": "Moda",
+            "label": "Moda",
             "nameEN": "Fashion",
             "icon": "fashion"
         },
         {
             "_id": "637a48b5d06d681a703ad4b9",
-            "namePL": "Zwierzęta",
+            "label": "Zwierzęta",
             "nameEN": "Animals",
             "icon": "animals"
         },
         {
             "_id": "637a48dcd06d681a703ad4ba",
-            "namePL": "Dla dzieci",
+            "label": "Dla dzieci",
             "nameEN": "For kids",
             "icon": "for_kids"
         },
         {
             "_id": "637a4905d06d681a703ad4bb",
-            "namePL": "Za darmo",
+            "label": "Za darmo",
             "nameEN": "Free of charge",
             "icon": "free_of_charge"
         }
@@ -103,6 +109,7 @@ const AddNewListingForm = () => {
         }
 
         axios.post(BACKEND_URL + '/offer/new', {
+            ownerID: loggedUser.loggedUser.userID,
             name: name,
             category: category,
             desc: desc,
@@ -128,16 +135,50 @@ const AddNewListingForm = () => {
 
     return(
         <div className='flex flex-col mt-8 w-full gap-4 pl-8 pr-8'>
+            <Typography variant="h3" class='inline-block pt-2'>Dodaj nowe ogłoszenie</Typography>
+            <div>
+                <Typography class='inline-block pt-2'>Dodaj zdjęcia do swojego ogłoszenia, zdjęcia są jedną z najistotniejszych elementów ogłoszenia.
+                Zadbaj o to, aby były wysokiej jakości i wyraźnie prezentowały sprzedawany przedmiot.</Typography>
+                <input type="file" multiple accept="image/*" onChange={onImageChange} />
+
+                {imageURLs.size !== 0 && <div className='offers-container overflow-auto w-full'>
+                    <div className='flex flex-col w-full'>
+                        <Carousel itemsToShow={1} className='self-center'>
+                            {imageURLs.map((image) => {
+                                return <Carousel.Item>
+                                    <Box
+                                        component="img"
+                                        sx={{
+                                            height: '50%',
+                                            width: '100%',
+                                            maxHeight: { xs: 700, md: 600 },
+                                            maxWidth: { xs: 700, md: 500 },
+                                            objectFit: 'cover',
+                                            backgroundColor: '#454a54'
+                                        }}
+                                        alt="This offer has no photo"
+                                        src={image}
+                                    />
+                                </Carousel.Item>})
+                            }
+                        </Carousel>
+                    </div>
+            </div>}
+            </div>
+
             <TextField
                 className='offer-color w-3/5'
                 id="outlined-required"
                 label="Nazwa"
                 onChange={(event) => {setName(event.target.value)}}
             />
-            <TextField
+            <Autocomplete
+                disablePortal
                 className='offer-color w-3/5'
-                id="outlined-required"
-                label="Kategoria"
+                id="combo-box-demo"
+                options={categories}
+                sx={{ width: 300 }}
+                renderInput={(params) => <TextField {...params} label="Kategoria" />}
                 onChange={(event) => {setCategory(event.target.value)}}
             />
             <TextField
@@ -160,32 +201,31 @@ const AddNewListingForm = () => {
                     </MenuItem>
                 ))}
             </TextField>*/}
-            <input type="file" multiple accept="image/*" onChange={onImageChange} />
-
-
-                {
-                    imageURLs.map(imageSrc =>
-                            <img src={imageSrc} />
-                        )
-                }
-
-
             <TextareaAutosize
                 aria-label="minimum height"
-                className='offer-color w-3/5'
+                className='offer-color w-3/5 min-h-[100px]'
                 minRows={3}
                 placeholder="Opis"
                 onChange={(event) => {setDesc(event.target.value)}}
             />
-            <TextField
-                className='offer-color w-2/5'
-                id="outlined-read-only-input"
-                label="Location"
-                value={createdOffer.createdOfferLocation.lon + ', ' + createdOffer.createdOfferLocation.lat}
-                InputProps={{
-                    readOnly: true,
-                }}
-            />
+
+            <div>
+                <Typography variant="h4" class='inline-block pt-2'>Lokalizacja</Typography>
+                <Typography class='inline-block pt-2'>Miejsce w którym chciałbyś spotkać z kupującym w celu dokonania transakcji - dom? biuro? osiedlowy warzywniak? Ty wybierasz! <br/> Aby dokonać wyboru naciśnij na mapę, a pole wypełni się współrzędnymi geograficznymi. </Typography>
+                <TextField
+                    className='offer-color w-2/5'
+                    id="outlined-read-only-input"
+                    value={createdOffer.createdOfferLocation.lat  + ', ' + createdOffer.createdOfferLocation.lon}
+                    InputProps={{
+                        readOnly: true,
+                    }}
+                />
+
+            </div>
+
+            <Typography variant="h4" class='inline-block pt-2'>Kontakt</Typography>
+            <Typography class='inline-block pt-2'>Podaj swoje dane i gotowe!</Typography>
+
             <TextField
                 className='offer-color w-2/5'
                 id="outlined-required"
@@ -196,13 +236,21 @@ const AddNewListingForm = () => {
                 id="outlined-required"
                 label="Email"
             />
-            <Button
-                variant="contained"
-                component="label"
-                className='offer-color w-1/5 align-middle'
-                onClick={handleSubmit}
-            >Opublikuj ogłoszenie
-            </Button>
+
+            <div className='flex justify-center'>
+                <Button
+                    style={{
+                        backgroundColor: "#FCA311",
+                    }}
+                    variant="contained"
+                    component="label"
+                    className='offer-color w-1/5 align-middle w-64'
+                    onClick={handleSubmit}
+                >Opublikuj ogłoszenie
+                </Button>
+            </div>
+
+
         </div>
     )
 };

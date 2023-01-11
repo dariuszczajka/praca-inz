@@ -33,8 +33,8 @@ const Login = () => {
     }
 
     function checkIsFormValid(){
-        if(username != '' &&
-            password != ''){
+        if(username !== '' &&
+            password !== ''){
             setIsFormValid(true);
         } else {
             setIsFormValid(false);

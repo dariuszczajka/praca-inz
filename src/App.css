@@ -54,27 +54,27 @@
 }
 
 .navbar-color{
-  background-color: #222831;
-}
-
-.offer-color{
-  background-color: #393E46;
-}
-
-.cta-color{
-  background-color: #00ADB5;
-}
-
-.white-color{
   background-color: #EEEEEE;
 }
 
+.offer-color{
+  background-color: #D6D6D6;
+}
+
+.cta-color{
+  background-color: #FCA311;
+}
+
+.white-color{
+  background-color: #FFFFFF;
+}
+
 .font-white-color{
-  color: #EEEEEE;
+  color: #000000;
 }
 
 .font-cta-color{
-  color: #00ADB5;
+  color: #FCA311;
 }
 
 .font-navbar-color{

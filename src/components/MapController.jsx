@@ -14,6 +14,7 @@ export default function MapController(props) {
     const dispatch = useDispatch();
     const map = useMap();
 
+    map.scrollWheelZoom.enable();
 
     useEffect(() => {
         if (!map) return;

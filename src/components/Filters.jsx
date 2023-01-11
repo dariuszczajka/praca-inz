@@ -6,12 +6,13 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
-import {Checkbox, FormControlLabel, FormGroup, Link, Snackbar, TextField} from "@mui/material";
+import {Box, Checkbox, FormControlLabel, FormGroup, Link, Snackbar, TextField} from "@mui/material";
 import axios from "axios";
 import {setOffers} from "../redux/allOffersSlice";
 import {useEffect, useState} from "react";
 import * as PropTypes from "prop-types";
 import MuiAlert from '@mui/material/Alert';
+import TuneIcon from '@mui/icons-material/Tune';
 import {useDispatch, useSelector} from "react-redux";
 import {
     setFilterCategory,
@@ -80,7 +81,15 @@ const Filters = () => {
 
     return (
         <div>
-            <Button variant="contained" onClick={handleClickOpen}>Filter</Button>
+            <Box onClick={handleClickOpen}>
+                <TuneIcon
+                    style={{
+                        color: "#000000",
+                        fontSize: "xx-large",
+                        marginTop: "0.45rem",
+                        cursor: "pointer"
+                    }}/>
+            </Box>
             <Dialog
                 open={open}
                 onClose={handleClose}
