@@ -18,7 +18,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 const Login = () => {
-    const loggedUser = useSelector(state => state.loggedUser);
+    //const loggedUser = useSelector(state => state.loggedUser);
     const dispatch = useDispatch();
     const [open, setOpen] = React.useState(false);
     const [username, setUsername] = useState('');
@@ -77,8 +77,8 @@ const Login = () => {
     };
 
     return (
-        <div>
-            <Button variant="contained" onClick={handleClickOpen}>
+        <div data-testid="login-test">
+            <Button data-testid="login-test-open-button" variant="contained" onClick={handleClickOpen}>
                 Zaloguj się
             </Button>
             <Dialog
@@ -89,11 +89,12 @@ const Login = () => {
             >
                 <DialogTitle>Zaloguj się</DialogTitle>
                 <DialogContent>
-                    <DialogContentText>
+                    <DialogContentText data-testid="login-info">
                         Masz już konto? Świetnie! Podaj swoje dane.
                     </DialogContentText>
                     <TextField
                         autoFocus
+                        data-testid="login-test-email"
                         margin="dense"
                         id="name"
                         label="E-mail"
@@ -104,6 +105,7 @@ const Login = () => {
                     />
                     <TextField
                         margin="dense"
+                        data-testid="login-test-password"
                         id="password"
                         label="Hasło"
                         type="password"
@@ -129,8 +131,8 @@ const Login = () => {
                     </div>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleSubmit}>Zaloguj się</Button>
+                    <Button data-testid="login-test-cancel-button" onClick={handleClose}>Cancel</Button>
+                    <Button data-testid="login-test-submit" onClick={handleSubmit}>Zaloguj się</Button>
                 </DialogActions>
             </Dialog>
         </div>
