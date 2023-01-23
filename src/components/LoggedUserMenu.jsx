@@ -50,7 +50,8 @@ function LoggedUserMenu(props) {
                         style={{
                             backgroundColor: "#FCA311",
                         }}
-                        onClick={handleAddListing}>
+                        onClick={handleAddListing}
+                        data-testid="add-listing-button">
                     Dodaj ogłoszenie
                 </Button>
                 <Tooltip title="Account settings">

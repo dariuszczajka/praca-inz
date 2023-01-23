@@ -18,7 +18,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 const Login = () => {
-    //const loggedUser = useSelector(state => state.loggedUser);
+    const loggedUser = useSelector(state => state.loggedUser);
     const dispatch = useDispatch();
     const [open, setOpen] = React.useState(false);
     const [username, setUsername] = useState('');

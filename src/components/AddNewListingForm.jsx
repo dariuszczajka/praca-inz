@@ -220,7 +220,6 @@ const AddNewListingForm = () => {
                     data-testid="listing-location"
                     className='offer-color w-2/5'
                     id="outlined-read-only-input"
-                    value={createdOffer.createdOfferLocation.lat  + ', ' + createdOffer.createdOfferLocation.lon}
                 />
 
             </div>
