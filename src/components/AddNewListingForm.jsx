@@ -109,7 +109,7 @@ const AddNewListingForm = () => {
         }
 
         axios.post(BACKEND_URL + '/offer/new', {
-            ownerID: loggedUser.loggedUser.userID,
+            ownerID: loggedUser.loggedUser.userId,
             name: name,
             category: category,
             desc: desc,
@@ -217,9 +217,12 @@ const AddNewListingForm = () => {
                 <Typography variant="h4" class='inline-block pt-2'>Lokalizacja</Typography>
                 <Typography class='inline-block pt-2'>Miejsce w którym chciałbyś spotkać z kupującym w celu dokonania transakcji - dom? biuro? osiedlowy warzywniak? Ty wybierasz! <br/> Aby dokonać wyboru naciśnij na mapę, a pole wypełni się współrzędnymi geograficznymi. </Typography>
                 <TextField
-                    data-testid="listing-location"
                     className='offer-color w-2/5'
                     id="outlined-read-only-input"
+                    value={createdOffer.createdOfferLocation.lat  + ', ' + createdOffer.createdOfferLocation.lon}
+                    InputProps={{
+                        readOnly: true,
+                    }}
                 />
 
             </div>

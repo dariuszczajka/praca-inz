@@ -10,11 +10,32 @@ import LocationCityIcon from "@mui/icons-material/LocationCity";
 import CallIcon from '@mui/icons-material/Call';
 import EmailIcon from '@mui/icons-material/Email';
 import SendEmail from "./SendEmail";
+import axios from "axios";
+import {setOffers} from "../redux/allOffersSlice";
 
 const MaximizedOffer = () => {
     const activeOffer = useSelector(state => state.activeOffer);
     const currentSiteController = useSelector(state => state.currentSiteController)
+    const loggedUser = useSelector(state => state.loggedUser);
     const dispatch = useDispatch();
+    const BACKEND_URL = 'http://localhost:5000'
+
+    async function deleteOffer() {
+        console.log(activeOffer.activeOffer._id);
+        axios.post(BACKEND_URL + '/offer/delete',{
+            offerID: activeOffer.activeOffer._id
+        })
+            .then(function (response) {
+                console.log('delete complete');
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+            .then(function () {
+                // always executed
+            });
+    }
 
     function timeSince(date) {
 
@@ -123,6 +144,12 @@ const MaximizedOffer = () => {
                         dispatch(removeActiveOffer());
                         dispatch(setCurrentSite(currentSiteController.availableSites.AllOffers));
                     }}>Wróć do przeglądania</Button>
+
+                    {activeOffer.activeOffer.ownerID === loggedUser.loggedUser.userId && <Button variant="contained" onClick={async () => {
+                        await deleteOffer();
+                        dispatch(removeActiveOffer());
+                        dispatch(setCurrentSite(currentSiteController.availableSites.AllOffers));
+                    }}>Usuń ofertę</Button>}
 
                     <SendEmail/>
                 </div>

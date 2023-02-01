@@ -40,7 +40,7 @@ const MapWrapper = () => {
     }
 
     return (
-        <MapContainer className="flex h-[54.5rem] w-1/2 mt-16 fixed right-0" center={center} zoom={18} scrollWheelZoom={false}>
+        <MapContainer data-testid="map" className="flex h-[54.5rem] w-1/2 mt-16 fixed right-0" center={center} zoom={18} scrollWheelZoom={false}>
             <TileLayer {...tileLayer} />
             <MapController activeOffer={activeOffer}/>
             <MarkerClusterGroup>

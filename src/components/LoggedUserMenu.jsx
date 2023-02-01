@@ -63,7 +63,7 @@ function LoggedUserMenu(props) {
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
                     >
-                        <Avatar sx={{ bgcolor: deepPurple[500] }}>{props.name.charAt(0)}</Avatar>
+                        <Avatar sx={{ bgcolor: deepPurple[500] }}>A</Avatar>
                     </IconButton>
                 </Tooltip>
             </Box>
