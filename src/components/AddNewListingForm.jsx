@@ -109,7 +109,7 @@ const AddNewListingForm = () => {
         }
 
         axios.post(BACKEND_URL + '/offer/new', {
-            ownerID: loggedUser.loggedUser.userID,
+            ownerID: loggedUser.loggedUser.userId,
             name: name,
             category: category,
             desc: desc,
@@ -135,11 +135,11 @@ const AddNewListingForm = () => {
 
     return(
         <div className='flex flex-col mt-8 w-full gap-4 pl-8 pr-8'>
-            <Typography variant="h3" class='inline-block pt-2'>Dodaj nowe ogłoszenie</Typography>
+            <Typography variant="h3" class='inline-block pt-2' data-testid="test-new-listing">Dodaj nowe ogłoszenie</Typography>
             <div>
                 <Typography class='inline-block pt-2'>Dodaj zdjęcia do swojego ogłoszenia, zdjęcia są jedną z najistotniejszych elementów ogłoszenia.
                 Zadbaj o to, aby były wysokiej jakości i wyraźnie prezentowały sprzedawany przedmiot.</Typography>
-                <input type="file" multiple accept="image/*" onChange={onImageChange} />
+                <input data-testid="listing-image-add" type="file" multiple accept="image/*" onChange={onImageChange} />
 
                 {imageURLs.size !== 0 && <div className='offers-container overflow-auto w-full'>
                     <div className='flex flex-col w-full'>
@@ -168,6 +168,7 @@ const AddNewListingForm = () => {
 
             <TextField
                 className='offer-color w-3/5'
+                data-testid="listing-name"
                 id="outlined-required"
                 label="Nazwa"
                 onChange={(event) => {setName(event.target.value)}}
@@ -175,6 +176,7 @@ const AddNewListingForm = () => {
             <Autocomplete
                 disablePortal
                 className='offer-color w-3/5'
+                data-testid="listing-category"
                 id="combo-box-demo"
                 options={categories}
                 sx={{ width: 300 }}
@@ -183,6 +185,7 @@ const AddNewListingForm = () => {
             />
             <TextField
                 className='offer-color w-3/5'
+                data-testid="listing-price"
                 id="outlined-required"
                 label="Cena"
                 onChange={(event) => {setPrice(event.target.value)}}
@@ -203,6 +206,7 @@ const AddNewListingForm = () => {
             </TextField>*/}
             <TextareaAutosize
                 aria-label="minimum height"
+                data-testid="listing-desc"
                 className='offer-color w-3/5 min-h-[100px]'
                 minRows={3}
                 placeholder="Opis"
@@ -227,12 +231,14 @@ const AddNewListingForm = () => {
             <Typography class='inline-block pt-2'>Podaj swoje dane i gotowe!</Typography>
 
             <TextField
+                data-testid="listing-phone"
                 className='offer-color w-2/5'
                 id="outlined-required"
                 label="Telefon"
             />
             <TextField
                 className='offer-color w-2/5'
+                data-testid="listing-email"
                 id="outlined-required"
                 label="Email"
             />
@@ -246,6 +252,7 @@ const AddNewListingForm = () => {
                     component="label"
                     className='offer-color w-1/5 align-middle w-64'
                     onClick={handleSubmit}
+                    data-testid="listing-submit"
                 >Opublikuj ogłoszenie
                 </Button>
             </div>

@@ -71,7 +71,7 @@ const LeftScreenController = () => {
         switch(currentSiteController.currentSite){
             case currentSiteController.availableSites.AllOffers:
                 if(allOffers.offers.length > 0){
-                    return(<Stack className='offers-container overflow-auto flex-grow ml-2 pr-2 mr-1' spacing={2}>
+                    return(<Stack data-testid="offer-stack" className='offers-container overflow-auto flex-grow ml-2 pr-2 mr-1' spacing={2}>
                         {allOffers.offers.map(offer => (
                             <SingleOffer key={offer._id} img={offer.img[0]} name={offer.name} desc={offer.desc} offer={offer}/>
                         ))}

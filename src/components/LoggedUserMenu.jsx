@@ -50,7 +50,8 @@ function LoggedUserMenu(props) {
                         style={{
                             backgroundColor: "#FCA311",
                         }}
-                        onClick={handleAddListing}>
+                        onClick={handleAddListing}
+                        data-testid="add-listing-button">
                     Dodaj ogłoszenie
                 </Button>
                 <Tooltip title="Account settings">
@@ -62,7 +63,7 @@ function LoggedUserMenu(props) {
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
                     >
-                        <Avatar sx={{ bgcolor: deepPurple[500] }}>{props.name.charAt(0)}</Avatar>
+                        <Avatar sx={{ bgcolor: deepPurple[500] }}>A</Avatar>
                     </IconButton>
                 </Tooltip>
             </Box>

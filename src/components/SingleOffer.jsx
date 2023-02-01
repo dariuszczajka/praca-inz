@@ -68,6 +68,7 @@ const SingleOffer = (props) => {
 
     return(
         <div className='offer-color flex gap-3 rounded-lg cursor-pointer'
+            data-testid="single-offer"
             onClick={() => {
                 dispatch(setActiveOffer(props.offer));
                 dispatch(setCurrentSite(currentSiteController.availableSites.MaximizedOffer));
@@ -87,7 +88,7 @@ const SingleOffer = (props) => {
             />
             <div className='flex-1 flex-col gap-1 width-full'>
                 <div className='flex flex-wrap-reverse flex-row width-full justify-between mr-3'>
-                    <h1 className='font-white-color'>{props.name}</h1>
+                    <h1 className='font-white-color' data-testid="offer-name">{props.name}</h1>
                     <div className='font-cta-color '>
                         <Typography variant="h3" class='inline-block pt-2'>{props.offer.price + ' zł'} </Typography>
                     </div>

@@ -104,10 +104,11 @@ const Register = () => {
     }
 
     return (
-        <div>
+        <div data-testid="register-test">
             <Link
                 component="button"
                 variant="body2"
+                data-cy="create-account"
                 onClick={handleClickOpen}
             >
                 Utwórz nowe konto
@@ -120,10 +121,12 @@ const Register = () => {
             >
                 <DialogTitle>Utwórz nowe konto</DialogTitle>
                 <DialogContent>
-                    <DialogContentText>
+                    <DialogContentText data-cy="register-info">
                         Hej! Świetnie Cię widzieć! Powiedz nam coś o sobie.
                     </DialogContentText>
                     <TextField
+                        data-testid="register-test-email"
+                        data-cy="register-test-email"
                         autoFocus
                         margin="dense"
                         id="name"
@@ -134,6 +137,8 @@ const Register = () => {
                         onChange={(event) => {setEmail(event.target.value)}}
                     />
                     <TextField
+                        data-testid="register-test-username"
+                        data-cy="register-test-username"
                         autoFocus
                         margin="dense"
                         id="Username"
@@ -144,6 +149,8 @@ const Register = () => {
                         onChange={(event) => {setUsername(event.target.value)}}
                     />
                     <TextField
+                        data-testid="register-test-password"
+                        data-cy="register-test-password"
                         margin="dense"
                         id="password"
                         label="Hasło"
@@ -154,6 +161,8 @@ const Register = () => {
                     />
                     <TextField
                         autoFocus
+                        data-testid="register-test-location"
+                        data-cy="register-test-location"
                         margin="dense"
                         id="location"
                         label="Lokalizacja"
@@ -164,6 +173,8 @@ const Register = () => {
                     />
                     <TextField
                         margin="dense"
+                        data-testid="register-test-phone"
+                        data-cy="register-test-phone"
                         id="phone"
                         label="Numer telefonu"
                         type="telephone"
@@ -172,7 +183,7 @@ const Register = () => {
                         onChange={(event) => {setPhone(event.target.value)}}
                     />
                     <FormGroup>
-                        <FormControlLabel control={<Checkbox onChange={() => {setAgreement(!agreement)}} />}  label="Wyrażam zgodę na przetwarzanie moich danych osobowych." />
+                        <FormControlLabel control={<Checkbox data-testid="register-test-checkbox" onChange={() => {setAgreement(!agreement)}} />}  label="Wyrażam zgodę na przetwarzanie moich danych osobowych." />
                     </FormGroup>
                 </DialogContent>
                 <Snackbar open={openAlert} autoHideDuration={5000} onClose={handleCloseAlert}>
@@ -183,9 +194,9 @@ const Register = () => {
                 <DialogActions>
                     <Button variant="outlined" onClick={handleClose}>Anuluj</Button>
                     {isFormValid ?
-                        <Button variant="outlined" onClick={handleSubmit}>Zarejestruj się</Button>
+                        <Button variant="outlined" onClick={handleSubmit} data-testid="register-test-email-enabled">Zarejestruj się</Button>
                         :
-                        <Button variant="outlined" disabled>Zarejestruj się</Button>
+                        <Button variant="outlined" disabled data-testid="register-test-email-disabled">Zarejestruj się</Button>
                     }
                 </DialogActions>
             </Dialog>
