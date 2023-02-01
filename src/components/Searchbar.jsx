@@ -21,9 +21,10 @@ import {setSearchQuery} from "../redux/filterSlice";
         return (
             <Stack direction="row" spacing={1} className='pt-0.5 pb-0.5'>
                 <Box className='flex flex-row white-color'>
-                    <BsSearch size={16} className='block mt-4 font-navbar-color mr-1 ml-1'/>
+                    <BsSearch size={16} className='block mt-3 font-navbar-color mr-1 ml-1'/>
                     <TextField
                                onChange={setQuery}
+                               data-testid="search-bar"
                                className='white-color w-64 border-none'
                                variant="standard"
                                InputProps={{

@@ -18,8 +18,8 @@ function App() {
 
     useEffect(() => {
         let potencialLoggedUser = JSON.parse(localStorage.getItem("loggedUser"));
-
-        if(potencialLoggedUser !== null && potencialLoggedUser.validTo < Date.now){
+        console.log(potencialLoggedUser);
+        if(potencialLoggedUser !== null){
             dispatch(logUser(potencialLoggedUser));
         }
         getCategoriesFromAPI();

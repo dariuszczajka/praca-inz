@@ -81,7 +81,8 @@ const Filters = () => {
 
     return (
         <div>
-            <Box onClick={handleClickOpen}>
+            <Box onClick={handleClickOpen}
+                 data-testid="filter-button">
                 <TuneIcon
                     style={{
                         color: "#000000",
@@ -106,6 +107,7 @@ const Filters = () => {
                         type="text"
                         fullWidth
                         variant="standard"
+                        data-testid="filter-city"
                         onChange={(event) => {setCity(event.target.value)}}
                     />
                     <TextField
@@ -124,6 +126,7 @@ const Filters = () => {
                         type="number"
                         fullWidth
                         variant="standard"
+                        data-testid="filter-price"
                         onChange={(event) => {setMin(event.target.value)}}
                     />
                     <TextField
